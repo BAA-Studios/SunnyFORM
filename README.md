@@ -10,6 +10,8 @@ As such, this repository currently aims to adapt their presently available docum
 As FireGiant puts out new documentation, we will revisit and continue to refine this repository to provide more comprehensive instructions, 
 as well as a more pleasing UI.
 
+You may find the official tutorial [here](https://www.firegiant.com/docs/wix/tutorial/), and the official docs [here](https://wixtoolset.org/docs/intro/).
+
 ## A rose by any other name would smell as sweet
 
 SunnyFORM is designed as a part of the toolchain for CastFORM, a Pokémon registration sheet filler.  
@@ -57,6 +59,7 @@ WiX supports a number of interfaces including CLI - we decided to go with the Vi
 3. Navigate to `Package.wxs`, and under the `Package`tag, update the version number attribute
 4. Check if the the folder structure in `CastFORM/build/windows/runner/Release` has changed, and update `Folders.wxs` accordingly
 5. Check if the file structure has changed, and update `AppComponents.wxs` accordingly
+6. In the top toolbar got to `Build > Build Solution`
 
 ## How To Use HeatWave for Flutter Projects
 
@@ -94,6 +97,7 @@ which may be suitable for large projects but unlikely to be necessary for our in
     - To use preprocessor variables, see step 2
 11. Repeat for Visual C++ Redustributable libraries
     - See our `VRredist.wxs` for reference
+12. In the top toolbar got to `Build > Build Solution`
 
 ## Disclaimer
 

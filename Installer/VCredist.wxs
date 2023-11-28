@@ -2,7 +2,14 @@
   <Fragment>
     <ComponentGroup Id="VCredist" Directory="INSTALLFOLDER">
       <Component>
-        <File Source="VCredist.wxs" />
+        <!-- We wrap single files in components to let the linker generate the GUIDs -->
+        <File Source="$(VisualStudoRedistDir)\msvcp140.dll" />
+      </Component>
+      <Component>
+        <File Source="$(VisualStudoRedistDir)\vcruntime140.dll" />
+      </Component>
+      <Component>
+        <File Source="$(VisualStudoRedistDir)\vcruntime140_1.dll" />
       </Component>
     </ComponentGroup>
   </Fragment>
