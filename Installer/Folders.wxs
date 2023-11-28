@@ -1,7 +1,20 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <Fragment>
     <StandardDirectory Id="ProgramFiles6432Folder">
-      <Directory Id="INSTALLFOLDER" Name="!(bind.Property.Manufacturer) !(bind.Property.ProductName)" />
+        <Directory Id="CompanyFolder" Name="!(bind.Property.Manufacturer)">
+          <Directory Id="INSTALLFOLDER" Name="!(bind.Property.ProductName)">
+              <Directory Id="DATAFOLDER" Name="data">
+                  <Directory Id="FLUTTERASSETSFOLDER" Name="flutter_assets">
+                      <Directory Id="AssetsFolder" Name="assets">
+                          <Directory Id="FONTSFOLDER" Name="fonts" />
+                          <Directory Id="FORMTEMPLATESFOLDER" Name="form_templates" />
+                      </Directory>
+                      <Directory Id="FLUTTERFONTSFOLDER" Name="fonts" />
+                      <Directory Id="SHADERSFOLDER" Name="shaders" />
+                  </Directory>
+              </Directory>
+          </Directory>
+        </Directory>
     </StandardDirectory>
   </Fragment>
 </Wix>

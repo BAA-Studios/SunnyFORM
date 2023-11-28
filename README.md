@@ -78,6 +78,11 @@ which may be suitable for large projects but unlikely to be necessary for our in
     - See `Package.wxs` and `AppComponents.wxs` in ours for reference
 6. Duplicate `ComponentGroupRef` tag for the other feature with a suitable ID for Visual C++ Redustributable libraries; similarly duplicate `AppComponents.wxs` and rename IDs to waht you used in the corresponding `ComponentGroupRef` ID
     - See `Package.wxs` and `VRredist.wxs` in ours for reference
+7. Modify `INSTALLFOLDER` in `Folders.wxs` to suit your preferred install location
+    - Supplying `ProgramFiles6432Folder` for `StandardDirectory` simply means to use either `C:\Program Files (x86)` or `C:\Program Files` as appropriate depending on build target
+    - The template created by HeatWave concatenates company name and product name to make one folder; we split this up into a nested folder structure for our use case
+8. Specify additional folders nested under `INSTALLFOLDER` according to your Flutter build
+    - Refer to `build/windows/runner/Release` after running `flutter build windows` in your Flutter project
 
 ## Disclaimer
 
