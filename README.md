@@ -5,6 +5,11 @@ SunnyFORM is an experimental CastFORM Windows Installer project.
 CastFORM v1.0.0 through v2.0.1 was built via iExpress and while this was serviceable, it was also clearly lacking many creature comforts like the ability to uninstall (rather than manually deleting the install folder).  
 SunnyFORM aims to improve upon this by leveraging on Windows Installer to provide an installation experience that is more aligned with the expectations of users.
 
+At the moment, WiX v4 is still very new, and its documentationa are still in development. 
+As such, this repository currently aims to adapt their presently available documentation for Flutter projects as our MVP. 
+As FireGiant puts out new documentation, we will revisit and continue to refine this repository to provide more comprehensive instructions, 
+as well as a more pleasing UI.
+
 ## A rose by any other name would smell as sweet
 
 SunnyFORM is designed as a part of the toolchain for CastFORM, a Pokémon registration sheet filler.  
@@ -28,7 +33,7 @@ It's still Windows Installer (and/or MSBuild) under the hood, but with many exte
 and exposing functionality in text form via XML. While the learning curve is supposedly steeper than with [Inno Setup](https://jrsoftware.org/isinfo.php), 
 we would like to give WiX a shot since it's able to generate `.msi` bundles (Inno Setup produces `.exe` installers instead).
 
-Taking inspiration from [this repository](https://github.com/zonble/flutter_wix_installer_example) by Weizhong Yang that we chanced upon during our research phase, 
+Taking inspiration from [this repository on WiX v3](https://github.com/zonble/flutter_wix_installer_example) by Weizhong Yang that we chanced upon during our research phase, 
 we decided to continually update this README with instructions as we progress with this project, 
 in hopes of providing more documentation for other members of the open source community whom wish to also deploy Flutter applications using WiX.
 
@@ -46,11 +51,33 @@ WiX supports a number of interfaces including CLI - we decided to go with the Vi
 
 ## How To Use SunnyFORM
 
-Lorem ipsum
+1. Clone the repository, and open in Visual Studio. Set the build configuration to x64 (required for Flutter).
+2. Navigate to `Package.wxs`, and under the `Package`tag, update the version number attribute
 
 ## How To Use HeatWave for Flutter Projects
 
-Lorem ipsum
+Note: These instructions are written for HeatWave v1.0.2, WiX v4.0.3 which are the latest versions at the time of writing.
+Note2: These instructions assume system-wide installation, rather than user-only installation since the latter does not currently have documentation from FireGiant at the moment.
+
+1. Open Visual Studio and create a new project. Set the build configuration to x64 (required for Flutter).
+    - Select `WiX` under the languages list, and then the `MSI Package (WiX v4)` temmplate
+    - After clicking `Next`, set the project name and location and check the option to use directory for project and solution
+      - If you don't check that last option, you'll end up with a folder structure like so: `.../solution/project/`, 
+which may be suitable for large projects but unlikely to be necessary for our intents and purposes
+    - After this you can hit `Create`
+2. `Package.wxs` should already be open for you. Modify the `Package` tag with the attributes you'd like to see in the installed app
+    - E.g. `Name` is how it should be displayed in the Start Menu after installation
+    - Version should be in the format `major.minor.build`, with the first 2 numbers being 0-255, and the build number being 0-65535
+    - Upgrade code is a GUID that lets Windows Installer identify different version of the same software
+3. Nest the following line within the `Package` tags (see ours for reference): `<MediaTemplate EmbedCab="yes"/>`
+    - This tells WiX to bundle the cabinet files inside of the `.msi` so that you only distribute one file as the installer
+4. Create a new `Feature` tag to enclose the existing template feature; create another one in the same level as the along side `Main`. Feel free to name the IDs as you see fit (see ours for reference).
+    - The feature tag should now be a tree with one parent and two children
+    - We are repurposing the feature tag provided for the main application, and creating one in the same level for Visual C++ redistributables
+5. Rename all instances of `ExampleComponents` to `AppComponents` in the project
+    - See `Package.wxs` and `AppComponents.wxs` in ours for reference
+6. Duplicate `ComponentGroupRef` tag for the other feature with a suitable ID for Visual C++ Redustributable libraries; similarly duplicate `AppComponents.wxs` and rename IDs to waht you used in the corresponding `ComponentGroupRef` ID
+    - See `Package.wxs` and `VRredist.wxs` in ours for reference
 
 ## Disclaimer
 

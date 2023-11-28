@@ -1,0 +1,9 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Fragment>
+    <ComponentGroup Id="VCredist" Directory="INSTALLFOLDER">
+      <Component>
+        <File Source="VCredist.wxs" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>

@@ -1,0 +1,22 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package 
+      Name="CastFORM" 
+      Manufacturer="BAA Studios" 
+      Version="1.0.0" 
+      UpgradeCode="8328a3b6-dec0-4dc2-9058-741f55a1003c">
+    <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
+
+    <MediaTemplate EmbedCab="yes"/>
+
+    <Feature Id="Complete">
+      <Feature Id="Main">
+        <!-- Flutter output -->
+        <ComponentGroupRef Id="AppComponents" />
+      </Feature>
+      <Feature Id="VCredist">
+        <!-- VCredist -->
+        <ComponentGroupRef Id="VCredist" />
+      </Feature>
+    </Feature>
+  </Package>
+</Wix>
