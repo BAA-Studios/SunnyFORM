@@ -51,8 +51,12 @@ WiX supports a number of interfaces including CLI - we decided to go with the Vi
 
 ## How To Use SunnyFORM
 
-1. Clone the repository, and open in Visual Studio. Set the build configuration to x64 (required for Flutter).
-2. Navigate to `Package.wxs`, and under the `Package`tag, update the version number attribute
+1. Run `flutter build windows`, and note CastFORM version
+2. Clone the repository, and open in Visual Studio. Set the build configuration to x64 (required for Flutter).
+3. In the top toolbar go to `Project > Properties > Build`, and modify the absolute paths for Fluttter build output and Visual C++ Redistributable libraries directories
+3. Navigate to `Package.wxs`, and under the `Package`tag, update the version number attribute
+4. Check if the the folder structure in `CastFORM/build/windows/runner/Release` has changed, and update `Folders.wxs` accordingly
+5. Check if the file structure has changed, and update `AppComponents.wxs` accordingly
 
 ## How To Use HeatWave for Flutter Projects
 
@@ -65,24 +69,31 @@ Note2: These instructions assume system-wide installation, rather than user-only
       - If you don't check that last option, you'll end up with a folder structure like so: `.../solution/project/`, 
 which may be suitable for large projects but unlikely to be necessary for our intents and purposes
     - After this you can hit `Create`
-2. `Package.wxs` should already be open for you. Modify the `Package` tag with the attributes you'd like to see in the installed app
+2. In the top toolbar go to `Project > Properties > Build`, and under `Preprocessor variables` set any user-defined variables you'd like to use
+    - Refer to our `Installer.wixproj` file for an example
+    - We use it to house the absolute paths for Fluttter build output and Visual C++ Redistributable libraries directories
+3. `Package.wxs` should already be open for you. Modify the `Package` tag with the attributes you'd like to see in the installed app
     - E.g. `Name` is how it should be displayed in the Start Menu after installation
     - Version should be in the format `major.minor.build`, with the first 2 numbers being 0-255, and the build number being 0-65535
     - Upgrade code is a GUID that lets Windows Installer identify different version of the same software
-3. Nest the following line within the `Package` tags (see ours for reference): `<MediaTemplate EmbedCab="yes"/>`
+4. Nest the following line within the `Package` tags (see ours for reference): `<MediaTemplate EmbedCab="yes"/>`
     - This tells WiX to bundle the cabinet files inside of the `.msi` so that you only distribute one file as the installer
-4. Create a new `Feature` tag to enclose the existing template feature; create another one in the same level as the along side `Main`. Feel free to name the IDs as you see fit (see ours for reference).
+5. Create a new `Feature` tag to enclose the existing template feature; create another one in the same level as the along side `Main`. Feel free to name the IDs as you see fit (see ours for reference).
     - The feature tag should now be a tree with one parent and two children
     - We are repurposing the feature tag provided for the main application, and creating one in the same level for Visual C++ redistributables
-5. Rename all instances of `ExampleComponents` to `AppComponents` in the project
-    - See `Package.wxs` and `AppComponents.wxs` in ours for reference
-6. Duplicate `ComponentGroupRef` tag for the other feature with a suitable ID for Visual C++ Redustributable libraries; similarly duplicate `AppComponents.wxs` and rename IDs to waht you used in the corresponding `ComponentGroupRef` ID
+6. Duplicate `ComponentGroupRef` tag for the other feature with a suitable ID for Visual C++ Redustributable libraries; similarly duplicate `ExampleComponents.wxs` and rename IDs to waht you used in the corresponding `ComponentGroupRef` ID
     - See `Package.wxs` and `VRredist.wxs` in ours for reference
-7. Modify `INSTALLFOLDER` in `Folders.wxs` to suit your preferred install location
+7. Use the `ComponentGroupRef` tag to create one component group reference for each folder you'd like to write files to (non-recursive)
+    - See `Package.wxs` and `AppComponents.wxs` in ours for reference
+8. Modify `INSTALLFOLDER` in `Folders.wxs` to suit your preferred install location
     - Supplying `ProgramFiles6432Folder` for `StandardDirectory` simply means to use either `C:\Program Files (x86)` or `C:\Program Files` as appropriate depending on build target
     - The template created by HeatWave concatenates company name and product name to make one folder; we split this up into a nested folder structure for our use case
-8. Specify additional folders nested under `INSTALLFOLDER` according to your Flutter build
+9. Specify additional folders nested under `INSTALLFOLDER` according to your Flutter build
     - Refer to `build/windows/runner/Release` after running `flutter build windows` in your Flutter project
+10. Flesh out application component groups - see our `AppComponents.wxs` for reference
+    - To use preprocessor variables, see step 2
+11. Repeat for Visual C++ Redustributable libraries
+    - See our `VRredist.wxs` for reference
 
 ## Disclaimer
 

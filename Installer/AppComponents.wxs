@@ -1,8 +1,72 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <Fragment>
-    <ComponentGroup Id="AppComponents" Directory="INSTALLFOLDER">
+    <ComponentGroup Id="BaseComponents" Directory="INSTALLFOLDER">
       <Component>
-        <File Source="AppComponents.wxs" />
+        <!-- We wrap single files in components to let the linker generate the GUIDs -->
+        <File Source="$(FlutterBuildOutputDir)\CastFORM.exe" />
+      </Component>
+      <Component>
+        <File Source="$(FlutterBuildOutputDir)\flutter_windows.dll" />
+      </Component>
+      <Component>
+        <File Source="$(FlutterBuildOutputDir)\pdfium.dll" />
+      </Component>
+      <Component>
+        <File Source="$(FlutterBuildOutputDir)\printing_plugin.dll" />
+      </Component>
+      <Component>
+        <File Source="$(FlutterBuildOutputDir)\url_launcher_windows_plugin.dll" />
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="DataComponents" Directory="DATAFOLDER">
+      <Component>
+        <File Source="$(FlutterBuildOutputDir)\data\app.so" />
+      </Component>
+      <Component>
+        <File Source="$(FlutterBuildOutputDir)\data\icudtl.dat" />
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="FlutterAssetComponents" Directory="FLUTTERASSETSFOLDER">
+      <Component>
+        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\AssetManifest.bin" />
+      </Component>
+      <Component>
+        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\AssetManifest.json" />
+      </Component>
+      <Component>
+        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\FontManifest.json" />
+      </Component>
+      <Component>
+        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\NOTICES.Z" />
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="FontComponents" Directory="FONTSFOLDER">
+      <Component>
+        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\assets\fonts\RobotoSlab-Regular.ttf" />
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="FormComponents" Directory="FORMTEMPLATESFOLDER">
+      <Component>
+        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\assets\form_templates\pokemon_decklist_a4.webp" />
+      </Component>
+      <Component>
+        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\assets\form_templates\pokemon_decklist_letter.webp" />
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="FlutterFontComponents" Directory="FLUTTERFONTSFOLDER">
+      <Component>
+        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\fonts\MaterialIcons-Regular.otf" />
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="ShaderComponents" Directory="SHADERSFOLDER">
+      <Component>
+        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\shaders\ink_sparkle.frag" />
       </Component>
     </ComponentGroup>
   </Fragment>

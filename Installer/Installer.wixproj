@@ -1,2 +1,20 @@
 ﻿<Project Sdk="WixToolset.Sdk/4.0.3">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <DefineConstants>FlutterBuildOutputDir=C:\Users\Kooki\Desktop\dev\tcg_tools\CastFORM\build\windows\runner\Release;VisualStudoRedistDir=C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.38.33130\x64\Microsoft.VC143.CRT</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <DefineConstants>FlutterBuildOutputDir=C:\Users\Kooki\Desktop\dev\tcg_tools\CastFORM\build\windows\runner\Release;VisualStudoRedistDir=C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.38.33130\x64\Microsoft.VC143.CRT</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <DefineConstants>FlutterBuildOutputDir=C:\Users\Kooki\Desktop\dev\tcg_tools\CastFORM\build\windows\runner\Release;VisualStudoRedistDir=C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.38.33130\x64\Microsoft.VC143.CRT</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <DefineConstants>FlutterBuildOutputDir=C:\Users\Kooki\Desktop\dev\tcg_tools\CastFORM\build\windows\runner\Release;VisualStudoRedistDir=C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.38.33130\x64\Microsoft.VC143.CRT</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <DefineConstants>FlutterBuildOutputDir=C:\Users\Kooki\Desktop\dev\tcg_tools\CastFORM\build\windows\runner\Release;VisualStudoRedistDir=C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.38.33130\x64\Microsoft.VC143.CRT</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <DefineConstants>FlutterBuildOutputDir=C:\Users\Kooki\Desktop\dev\tcg_tools\CastFORM\build\windows\runner\Release;VisualStudoRedistDir=C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.38.33130\x64\Microsoft.VC143.CRT</DefineConstants>
+  </PropertyGroup>
 </Project>

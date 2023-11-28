@@ -11,7 +11,13 @@
     <Feature Id="Complete">
       <Feature Id="Main">
         <!-- Flutter output -->
-        <ComponentGroupRef Id="AppComponents" />
+        <ComponentGroupRef Id="BaseComponents" />
+        <ComponentGroupRef Id="DataComponents" />
+        <ComponentGroupRef Id="FlutterAssetComponents" />
+        <ComponentGroupRef Id="FontComponents" />
+        <ComponentGroupRef Id="FormComponents" />
+        <ComponentGroupRef Id="FlutterFontComponents" />
+        <ComponentGroupRef Id="ShaderComponents" />
       </Feature>
       <Feature Id="VCredist">
         <!-- VCredist -->
