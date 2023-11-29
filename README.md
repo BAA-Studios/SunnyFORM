@@ -54,7 +54,9 @@ WiX supports a number of interfaces including CLI - we decided to go with the Vi
 At the time of writing, we are letting HeatWave and WiX generate GUIDs instead of managing them manually. 
 Should we want to micromanage this in the future, we will probably use the `New-Guid` PowerShell cmdlet to generate new GUIDs.
 
-## How To Use SunnyFORM
+## Usage Guides
+
+### How To Use SunnyFORM
 
 1. Run `flutter build windows`, and note CastFORM version
 2. Clone the repository, and open in Visual Studio. Set the build configuration to x64 (required for Flutter).
@@ -65,7 +67,7 @@ Should we want to micromanage this in the future, we will probably use the `New-
 6. In the top toolbar got to `Build > Build Solution`
 7. Go to `Installer/bin/x64/Release/en-US` to find `CastFORM_Installer_x64.msi` and upload that to the CastFORM releases page
 
-## How To Use HeatWave for Flutter Projects
+### How To Use HeatWave for Flutter Projects
 
 Note: These instructions are written for HeatWave v1.0.2, WiX v4.0.3 which are the latest versions at the time of writing.  
 Note2: These instructions assume system-wide installation, rather than user-only installation since the latter does not currently have documentation from FireGiant at the moment.  
@@ -112,7 +114,11 @@ For a set-up GUI during the installation process, WiX has an extension called Wi
 You may also refer to either the source code in our `main` branch for examples, or, [Rob Mensching's VOD on how to install and import the extension](https://www.youtube.com/live/-1-72Py0GSM?si=gCTOtuOEt7KDDJvG) 
 and [Rob Mensching's VOD on how to customise the GUI](https://www.youtube.com/live/8eSS0DchoTY?si=n9Jv6eDOjCQHRmuL) to see it in action.
 
-## ICE60 Warnings
+---
+
+## Common Errors and FAQ
+
+### ICE60 Warnings
 You may come across ICE60 warnings as a result of Flutter's font files (like `MaterialIcons-Regular.otf`). This has to do with Windows Installer's behvaiour at a low level:  
 > ICE60 checks that files in the File table meet the following condition:
 > 
@@ -128,7 +134,7 @@ Our solution to this is to set our Flutter-generated `.exe` executable as `keypa
 This makes the font files companion references to the executable (and is upgraded every time the executable is upgraded), and thus exempt from 
 the code page value requirement.
 
-## Restricting Installer to 64-bit Windows 10/11
+### Restricting Installer to 64-bit Windows 10/11 via VersionNT/VersionNT64
 
 This oddity with VersionNT64 tripped us up for a long time. Flutter only officially supports 64-bit Windows 10/11, and one would think that querying for the VersionNT64 
 would resolve this.
