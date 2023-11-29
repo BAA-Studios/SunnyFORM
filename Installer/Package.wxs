@@ -9,7 +9,12 @@
     <MediaTemplate EmbedCab="yes"/>
 
     <Feature Id="Complete">
-      <Feature Id="Main">
+      <Feature 
+          Id="Main" 
+          Title="CastFORM" 
+          Description="The CastFORM application." 
+          AllowAbsent="no" 
+          AllowAdvertise="no">
         <!-- Flutter output -->
         <ComponentGroupRef Id="BaseComponents" />
         <ComponentGroupRef Id="DataComponents" />
@@ -19,7 +24,12 @@
         <ComponentGroupRef Id="FlutterFontComponents" />
         <ComponentGroupRef Id="ShaderComponents" />
       </Feature>
-      <Feature Id="VCredist">
+      <Feature 
+          Id="VCredist" 
+          Title="Visual C++ Redistributable Libraries" 
+          Description="Libraries that CastFORM uses. You may not need this if you already have vc_redist installed. You should install these if you're unsure of what this means." 
+          AllowAbsent="yes"
+          AllowAdvertise="no">
         <!-- Visual C++ Redustributable libraries -->
         <ComponentGroupRef Id="VCredist" />
       </Feature>
