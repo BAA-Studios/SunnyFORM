@@ -107,7 +107,8 @@ which may be suitable for large projects but unlikely to be necessary for our in
 The steps outlined above will generate a non-GUI `.msi` installer that you can distribute. 
 Once you have confirmed that you can get it working, you might want to start setting up a GUI inteface for configuration. 
 For a set-up GUI during the installation process, WiX has an extension called [WixUI dialog library](https://wixtoolset.org/docs/tools/wixext/wixui/). 
-You may also refer to either the source code in our `main` branch, or [Rob Mensching's VOD](https://www.youtube.com/live/-1-72Py0GSM?si=gCTOtuOEt7KDDJvG) to see it in action.
+You may also refer to either the source code in our `main` branch for example code, or, [Rob Mensching's VOD on how to install and import the extension](https://www.youtube.com/live/-1-72Py0GSM?si=gCTOtuOEt7KDDJvG) 
+and [Rob Mensching's VOD on how to customise the GUI](https://www.youtube.com/live/8eSS0DchoTY?si=n9Jv6eDOjCQHRmuL).
 
 ## Disclaimer
 
