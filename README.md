@@ -128,6 +128,32 @@ Our solution to this is to set our Flutter-generated `.exe` executable as `keypa
 This makes the font files companion references to the executable (and is upgraded every time the executable is upgraded), and thus exempt from 
 the code page value requirement.
 
+## Restricting Installer to 64-bit Windows 10/11
+
+This oddity with VersionNT64 tripped us up for a long time. Flutter only officially supports 64-bit Windows 10/11, and one would think that querying for the VersionNT64 
+would resolve this.
+
+This is what Microsoft's documentation have to say:  
+> **VersionNT64 property**
+> The installer sets the VersionNT64 property to the version number for the operating system only if the system is running on a 64-bit computer. The property is undefined if the operating system is not 64-bit.
+> 
+> The value is an integer: MajorVersion * 100 + MinorVersion.
+> \- https://learn.microsoft.com/en-us/windows/win32/msi/versionnt64
+
+With this in mind, one might be led to believe that the Win32 call would result in VersionNT64 returning `1000` or more for 64-bit Windows 10+ and 64-bit Windows Server 2016+. 
+However, if you are attempting this query during a `.msi` installation, VersionNT64 actually returns `603` for all Windows 8.1+ and Windows Server 2012r2+ OSes. 
+According to Microsoft, this is a feature not a bug:  
+> **VersionNT value for Windows 10, Windows Server 2016, and Windows Server 2019**
+> When you install a .msi installation package in Windows 10, Windows Server 2016 or Windows Server 2019, the VersionNT value is 603.
+> 
+> \- https://learn.microsoft.com/en-US/troubleshoot/windows-client/application-management/versionnt-value-for-windows-10-server
+
+Our solution was to use `603`, and assume that there's no sane person using Windows 8.1 that might want to use our application. Understandably this only minorly circumvents the problem, 
+and there might be legitimate reasons you may need to check for an exact OS version - from the research we have done, the only reliable way to do so is is via reflection from the Registry.
+
+We note that WiX v4 documentation makes some mention of Burn's own VersionNT64 variables; we are unable to comment on how well this works and how to use it, 
+since we are not using Burn bundles since our application is fairly small and simply structured. You may find the documentation for Burn [here](https://wixtoolset.org/docs/tools/burn/).
+
 ## Disclaimer
 
 **SunnyFORM** is an open-source project for creating [CastFORM](https://github.com/BAA-Studios/CastFORM) installers for the Windows platform.  
