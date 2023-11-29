@@ -63,6 +63,7 @@ Should we want to micromanage this in the future, we will probably use the `New-
 4. Check if the the folder structure in `CastFORM/build/windows/runner/Release` has changed, and update `Folders.wxs` accordingly
 5. Check if the file structure has changed, and update `AppComponents.wxs` accordingly
 6. In the top toolbar got to `Build > Build Solution`
+7. Go to `Installer/bin/x64/Release/en-US` to find `CastFORM_Installer_x64.msi` and upload that to the CastFORM releases page
 
 ## How To Use HeatWave for Flutter Projects
 
@@ -101,8 +102,12 @@ which may be suitable for large projects but unlikely to be necessary for our in
 11. Repeat for Visual C++ Redustributable libraries
     - See our `VRredist.wxs` for reference
 12. In the top toolbar got to `Build > Build Solution`
+13. Check the output and test that it installs your program correctly
 
-This will generate a `.msi` installer that you can distribute, that has no GUI.
+The steps outlined above will generate a non-GUI `.msi` installer that you can distribute. 
+Once you have confirmed that you can get it working, you might want to start setting up a GUI inteface for configuration. 
+For a set-up GUI during the installation process, WiX has an extension called [WixUI dialog library](https://wixtoolset.org/docs/tools/wixext/wixui/). 
+You may also refer to source code in our `main` branch to see it in action.
 
 ## Disclaimer
 
