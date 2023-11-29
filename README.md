@@ -79,25 +79,27 @@ which may be suitable for large projects but unlikely to be necessary for our in
     - E.g. `Name` is how it should be displayed in the Start Menu after installation
     - Version should be in the format `major.minor.build`, with the first 2 numbers being 0-255, and the build number being 0-65535
     - Upgrade code is a GUID that lets Windows Installer identify different version of the same software
-4. Nest the following line within the `Package` tags (see ours for reference): `<MediaTemplate EmbedCab="yes"/>`
+4. Nest the following line within the `Package` tags (see ours in the `headless` branch for reference): `<MediaTemplate EmbedCab="yes"/>`
     - This tells WiX to bundle the cabinet files inside of the `.msi` so that you only distribute one file as the installer
-5. Create a new `Feature` tag to enclose the existing template feature; create another one in the same level as the along side `Main`. Feel free to name the IDs as you see fit (see ours for reference).
+5. Create a new `Feature` tag to enclose the existing template feature; create another one in the same level as the along side `Main`. Feel free to name the IDs as you see fit (see ours in the `headless` branch for reference).
     - The feature tag should now be a tree with one parent and two children
     - We are repurposing the feature tag provided for the main application, and creating one in the same level for Visual C++ redistributables
 6. Duplicate `ComponentGroupRef` tag for the other feature with a suitable ID for Visual C++ Redustributable libraries; similarly duplicate `ExampleComponents.wxs` and rename IDs to waht you used in the corresponding `ComponentGroupRef` ID
-    - See `Package.wxs` and `VRredist.wxs` in ours for reference
+    - See `Package.wxs` and `VRredist.wxs` in ours in the `headless` branch for reference
 7. Use the `ComponentGroupRef` tag to create one component group reference for each folder you'd like to write files to (non-recursive)
-    - See `Package.wxs` and `AppComponents.wxs` in ours for reference
+    - See `Package.wxs` and `AppComponents.wxs` in ours in the `headless` branch for reference
 8. Modify `INSTALLFOLDER` in `Folders.wxs` to suit your preferred install location
     - Supplying `ProgramFiles6432Folder` for `StandardDirectory` simply means to use either `C:\Program Files (x86)` or `C:\Program Files` as appropriate depending on build target
     - The template created by HeatWave concatenates company name and product name to make one folder; we split this up into a nested folder structure for our use case
 9. Specify additional folders nested under `INSTALLFOLDER` according to your Flutter build
     - Refer to `build/windows/runner/Release` after running `flutter build windows` in your Flutter project
-10. Flesh out application component groups - see our `AppComponents.wxs` for reference
+10. Flesh out application component groups - see our `AppComponents.wxs` in the `headless` branch for reference
     - To use preprocessor variables, see step 2
 11. Repeat for Visual C++ Redustributable libraries
     - See our `VRredist.wxs` for reference
 12. In the top toolbar got to `Build > Build Solution`
+
+This will generate a `.msi` installer that you can distribute, that has no GUI.
 
 ## Disclaimer
 
