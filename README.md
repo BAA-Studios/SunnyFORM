@@ -18,27 +18,6 @@ SunnyFORM is designed as a part of the toolchain for CastFORM, a Pokémon regist
 Being a form-automation application based around Pokémon TCG, CastFORM is a play on words using the name of one of the playable Pokémon.  
 This project inherits its name from Castform's forms, which changes depending on the weather: under harsh sunlight, Castform will be in its Sunny Form and be a Fire-type Pokémon.
 
-## Detours
-
-Although we initially explored the possibility of using the installer creation template from the *Microsoft Visual Studio Installer Projects* extension, 
-we were unable to get it working due to our relative inexperience with production C++ nor building Flutter via Visual Studio. 
-It didn't help that this doesn't seem to be a particularly popular approach, and we could not find good documentation for this. 
-Next, we considered using Windows Installer, which is what the Flutter team at Google recommends (if not using Microsoft Store). 
-Microsoft's own documentation for this, while extensive, is also very difficult to read through and has minimal follow-along instructions (at the time of writing). 
-It reads more like developer docs, and turned out too difficult to get right into. Searching around, we did find [this 75 page guide](https://www.itninja.com/static/c94ee3e6f937bcb62a8451cb94a0a206.pdf) 
-written by ITNinja for an earlier version of Windows Installer - which is really great and much more digestable than Microsoft's official documentation - but unfortunately 
-was still a bit much for us, considering our extremely small team size and product size.
-
-In view of this, we opted for a more user-friendly option: the [WiX Toolset](https://github.com/wixtoolset/wix) (aka `Windows Installer XML`).
-WiX Toolset is an open source set of build tools for building Windows Installer packages. 
-It's still Windows Installer (and/or MSBuild) under the hood, but with many extensions provided to automate some of the more tedious parts of Windows Installer package creation, 
-and exposing functionality in text form via XML. While the learning curve is supposedly steeper than with [Inno Setup](https://jrsoftware.org/isinfo.php), 
-we would like to give WiX a shot since it's able to generate `.msi` bundles (Inno Setup produces `.exe` installers instead).
-
-Taking inspiration from [this repository on WiX v3](https://github.com/zonble/flutter_wix_installer_example) by Weizhong Yang that we chanced upon during our research phase, 
-we decided to continually update this README with instructions as we progress with this project, 
-in hopes of providing more documentation for other members of the open source community whom wish to also deploy Flutter applications using WiX.
-
 ## Tech Stack
 
 Our test bench is set up with the following dependencies:  
@@ -69,99 +48,11 @@ Should we want to micromanage this in the future, we will probably use the `New-
 
 ### How To Use HeatWave for Flutter Projects
 
-Note: These instructions are written for HeatWave v1.0.2, WiX v4.0.3 which are the latest versions at the time of writing.  
-Note2: These instructions assume system-wide installation, rather than user-only installation since the latter does not currently have documentation from FireGiant at the moment.  
-Note3: These instructions will produce one single self-contained no-options no-GUI full-install `.msi` file as an MVP output. We have provided links to relevant documentation pertaining 
-to GUI-customisation at the end of the section.
+This section has been migrated to [its own repository](https://github.com/KOOKIIEStudios/WiX-v4-for-Flutter).
 
-1. Open Visual Studio and create a new project. Set the build configuration to x64 (required for Flutter).
-    - Select `WiX` under the languages list, and then the `MSI Package (WiX v4)` temmplate
-    - After clicking `Next`, set the project name and location and check the option to use directory for project and solution
-      - If you don't check that last option, you'll end up with a folder structure like so: `.../solution/project/`, 
-which may be suitable for large projects but unlikely to be necessary for our intents and purposes
-    - After this you can hit `Create`
-2. In the top toolbar go to `Project > Properties > Build`, and under `Preprocessor variables` set any user-defined variables you'd like to use
-    - Refer to our `Installer.wixproj` file for an example
-    - We use it to house the absolute paths for Fluttter build output and Visual C++ Redistributable libraries directories
-3. `Package.wxs` should already be open for you. Modify the `Package` tag with the attributes you'd like to see in the installed app
-    - E.g. `Name` is how it should be displayed in the Start Menu after installation
-    - Version should be in the format `major.minor.build`, with the first 2 numbers being 0-255, and the build number being 0-65535
-    - Upgrade code is a GUID that lets Windows Installer identify different version of the same software
-4. Nest the following line within the `Package` tags (see ours in the `headless` branch for reference): `<MediaTemplate EmbedCab="yes"/>`
-    - This tells WiX to bundle the cabinet files inside of the `.msi` so that you only distribute one file as the installer
-5. Create a new `Feature` tag to enclose the existing template feature; create another one in the same level as the along side `Main`. Feel free to name the IDs as you see fit (see ours in the `headless` branch for reference).
-    - The feature tag should now be a tree with one parent and two children
-    - We are repurposing the feature tag provided for the main application, and creating one in the same level for Visual C++ redistributables
-6. Duplicate `ComponentGroupRef` tag for the other feature with a suitable ID for Visual C++ Redustributable libraries; similarly duplicate `ExampleComponents.wxs` and rename IDs to waht you used in the corresponding `ComponentGroupRef` ID
-    - See `Package.wxs` and `VRredist.wxs` in ours in the `headless` branch for reference
-7. Use the `ComponentGroupRef` tag to create one component group reference for each folder you'd like to write files to (non-recursive)
-    - See `Package.wxs` and `AppComponents.wxs` in ours in the `headless` branch for reference
-8. Modify `INSTALLFOLDER` in `Folders.wxs` to suit your preferred install location
-    - Supplying `ProgramFiles6432Folder` for `StandardDirectory` simply means to use either `C:\Program Files (x86)` or `C:\Program Files` as appropriate depending on build target
-    - The template created by HeatWave concatenates company name and product name to make one folder; we split this up into a nested folder structure for our use case
-9. Specify additional folders nested under `INSTALLFOLDER` according to your Flutter build
-    - Refer to `build/windows/runner/Release` after running `flutter build windows` in your Flutter project
-10. Flesh out application component groups - see our `AppComponents.wxs` in the `headless` branch for reference
-    - To use preprocessor variables, see step 2
-11. Repeat for Visual C++ Redustributable libraries
-    - See our `VRredist.wxs` for reference
-12. In the top toolbar got to `Build > Build Solution`
-13. Check the output and test that it installs your program correctly
+### Common Errors and Gotchas
 
-The steps outlined above will generate a non-GUI `.msi` installer that you can now proceed to test. 
-Once you have confirmed that you can get it working, you might want to start setting up a GUI inteface for configuration. 
-For a set-up GUI during the installation process, WiX has an extension called WixUI dialog library, and you can find the API reference [here](https://wixtoolset.org/docs/tools/wixext/wixui/). 
-You may also refer to either the source code in our `main` branch for examples, or, [Rob Mensching's VOD on how to install and import the extension](https://www.youtube.com/live/-1-72Py0GSM?si=gCTOtuOEt7KDDJvG) 
-and [Rob Mensching's VOD on how to customise the GUI](https://www.youtube.com/live/8eSS0DchoTY?si=n9Jv6eDOjCQHRmuL) to see it in action.
-
----
-
-## Common Errors and FAQ
-
-### ICE60 Warnings
-You may come across ICE60 warnings as a result of Flutter's font files (like `MaterialIcons-Regular.otf`). This has to do with Windows Installer's behvaiour at a low level:  
-> ICE60 checks that files in the File table meet the following condition:
-> 
-> - If the file is not a font and has a version, then it must have a language.
-> - ICE60 checks that no versioned files are listed in the MsiFileHash table.
-> 
-> \- [*Windows Installer Guide*](https://learn.microsoft.com/en-us/windows/win32/msi/ice60)
-
-The conundrum we have is that we wish for Windows Installer to treat these as normal files, rather than install them to the Windows font folder. 
-However, since these files are versioned, the first condition would require them to also have an encoding specified (which they can't).
-
-Our solution to this is to set our Flutter-generated `.exe` executable as `keypath`, and any offending font files as companion files to it. 
-This makes the font files companion references to the executable (and is upgraded every time the executable is upgraded), and thus exempt from 
-the code page value requirement.
-
-### Restricting Installer to 64-bit Windows 10/11 via VersionNT/VersionNT64
-
-This oddity with VersionNT64 tripped us up for a long time. Flutter only officially supports 64-bit Windows 10/11, and one would think that querying for the VersionNT64 
-would resolve this.
-
-This is what Microsoft's documentation have to say:  
-> **VersionNT64 property**  
-> The installer sets the VersionNT64 property to the version number for the operating system only if the system is running on a 64-bit computer. The property is undefined if the operating system is not 64-bit.  
-> 
-> The value is an integer: MajorVersion * 100 + MinorVersion.
-> 
-> \- https://learn.microsoft.com/en-us/windows/win32/msi/versionnt64
-
-With this in mind, one might be led to believe that the Win32 call would result in VersionNT64 returning `1000` or more for 64-bit Windows 10+ and 64-bit Windows Server 2016+. 
-However, if you are attempting this query during a `.msi` installation, VersionNT64 actually returns `603` for all Windows 8.1+ and Windows Server 2012r2+ OSes. 
-According to Microsoft, this is a feature not a bug:  
-> **VersionNT value for Windows 10, Windows Server 2016, and Windows Server 2019**  
-> When you install a .msi installation package in Windows 10, Windows Server 2016 or Windows Server 2019, the VersionNT value is 603.  
-> 
-> This version numbering is by design. To maintain compatibility, the VersionNT value is 603 for Windows 10, Windows Server 2016, and Windows Server 2019.
-> 
-> \- https://learn.microsoft.com/en-US/troubleshoot/windows-client/application-management/versionnt-value-for-windows-10-server
-
-Our solution was to use `603`, and assume that there's no sane person using Windows 8.1 that might want to use our application. Understandably this only minorly circumvents the problem, 
-and there might be legitimate reasons you may need to check for an exact OS version - from the research we have done, the only reliable way to do so is is via reflection from the Registry.
-
-We note that WiX v4 documentation makes some mention of Burn's own VersionNT64 variables; we are unable to comment on how well this works and how to use it, 
-since we are not using Burn bundles since our application is fairly small and simply structured. You may find the documentation for Burn [here](https://wixtoolset.org/docs/tools/burn/).
+This section has been migrated to [its own repository](https://github.com/KOOKIIEStudios/WiX-v4-for-Flutter).
 
 ## Disclaimer
 
