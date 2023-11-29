@@ -1,7 +1,7 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <Fragment>
     <!-- Set an icon for shortcuts -->
-    <!--<Icon Id="insert_icon_object_here" SourceFile="path_to_file"/>-->
+    <!--TODO: <Icon Id="insert_icon_object_here" SourceFile="path_to_file"/>-->
     
     <ComponentGroup Id="BaseComponents" Directory="INSTALLFOLDER">
       <Component>
@@ -15,8 +15,8 @@
         requirement; they are upgraded whenever CastFORM.exe is upgraded.
         -->
         <File Id="CastFORM.exe" Source="$(FlutterBuildOutputDir)\CastFORM.exe" KeyPath="yes" />
-        <!--<Shortcut Name="CastFORM" Description="Pokemon TCG Decklist Generator" Directory="ProgramMenuFolder" Icon="insert_icon_object_here" />
-        <Shortcut Name="CastFORM" Description="Pokemon TCG Decklist Generator" Directory="DesktopFolder" Icon="insert_icon_object_here" />-->
+        <Shortcut Name="CastFORM" Description="Pokemon TCG Decklist Generator" Directory="ProgramMenuFolder" /><!-- TODO: Add icon -->
+        <!--TODO: <Shortcut Name="CastFORM" Description="Pokemon TCG Decklist Generator" Directory="DesktopFolder" Icon="insert_icon_object_here" />-->
       </Component>
       <Component>
         <File Source="$(FlutterBuildOutputDir)\flutter_windows.dll" />

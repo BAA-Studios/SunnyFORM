@@ -9,7 +9,7 @@
     <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
 
     <!-- Set an icon for Windows Settings > Apps -->
-    <!--<Property Id="ARPPRODUCTICON" Value="insert_icon_object_here" />-->
+    <!--TODO: <Property Id="ARPPRODUCTICON" Value="insert_icon_object_here" />-->
     
     <!-- Block pre-win10/server2016 fromm installing -->
     <Launch Message="CastFORM only supports 64-bit Windows 10/11!" Condition="Installed OR VersionNT64 >= 603"/>
