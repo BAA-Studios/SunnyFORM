@@ -23,7 +23,8 @@
       
       <!-- Desktop shortcut (user's choice) -->
       <Component Directory="DesktopFolder" Condition="ENABLEDESKTOPSHORTCUT">
-        <Shortcut Name="CastFORM" Description="Pokemon TCG Decklist Generator" Directory="DesktopFolder" Advertise="yes" /><!-- TODO: Add icon -->
+        <RegistryValue Root="HKCU" Key="SOFTWARE\BAA Studios\CastFORM" Name="EnableDesktopShortcut" Value="1" />
+        <Shortcut Name="CastFORM" Description="Pokemon TCG Decklist Generator" Directory="DesktopFolder" Target="[#CastFORM.exe]" /><!-- TODO: Add icon -->
       </Component>
       
       <Component>
