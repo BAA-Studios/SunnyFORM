@@ -15,7 +15,7 @@
         requirement; they are upgraded whenever CastFORM.exe is upgraded.
         -->
         <File Id="CastFORM.exe" Source="$(FlutterBuildOutputDir)\CastFORM.exe" KeyPath="yes" />
-        <Shortcut Name="CastFORM" Description="Pokemon TCG Decklist Generator" Directory="ProgramMenuFolder" /><!-- TODO: Add icon -->
+        <Shortcut Name="CastFORM" Description="Pokemon TCG Decklist Generator" Directory="ProgramMenuFolder" Advertise="yes" /><!-- TODO: Add icon -->
         <!--TODO: <Shortcut Name="CastFORM" Description="Pokemon TCG Decklist Generator" Directory="DesktopFolder" Icon="insert_icon_object_here" />-->
       </Component>
       <Component>
