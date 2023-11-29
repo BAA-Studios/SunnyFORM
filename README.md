@@ -137,7 +137,8 @@ This is what Microsoft's documentation have to say:
 > **VersionNT64 property**  
 > The installer sets the VersionNT64 property to the version number for the operating system only if the system is running on a 64-bit computer. The property is undefined if the operating system is not 64-bit.  
 > 
-> The value is an integer: MajorVersion * 100 + MinorVersion.  
+> The value is an integer: MajorVersion * 100 + MinorVersion.
+> 
 > \- https://learn.microsoft.com/en-us/windows/win32/msi/versionnt64
 
 With this in mind, one might be led to believe that the Win32 call would result in VersionNT64 returning `1000` or more for 64-bit Windows 10+ and 64-bit Windows Server 2016+. 
@@ -145,6 +146,8 @@ However, if you are attempting this query during a `.msi` installation, VersionN
 According to Microsoft, this is a feature not a bug:  
 > **VersionNT value for Windows 10, Windows Server 2016, and Windows Server 2019**  
 > When you install a .msi installation package in Windows 10, Windows Server 2016 or Windows Server 2019, the VersionNT value is 603.  
+> 
+> This version numbering is by design. To maintain compatibility, the VersionNT value is 603 for Windows 10, Windows Server 2016, and Windows Server 2019.
 > 
 > \- https://learn.microsoft.com/en-US/troubleshoot/windows-client/application-management/versionnt-value-for-windows-10-server
 
