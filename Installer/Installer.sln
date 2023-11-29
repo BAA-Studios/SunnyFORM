@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{B7DD6F7E-DEF8-4E67-B5B7-07EF123DB6F0}") = "Installer", "Installer.wixproj", "{0DF7A894-E69A-46AF-96E4-B2BB462C9F7E}"
+Project("{B7DD6F7E-DEF8-4E67-B5B7-07EF123DB6F0}") = "CastFORM_Installer_x64", "CastFORM_Installer_x64.wixproj", "{0DF7A894-E69A-46AF-96E4-B2BB462C9F7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
