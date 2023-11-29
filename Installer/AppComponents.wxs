@@ -5,8 +5,16 @@
     
     <ComponentGroup Id="BaseComponents" Directory="INSTALLFOLDER">
       <Component>
-        <!-- We wrap single files in components to let the linker generate the GUIDs -->
-        <File Source="$(FlutterBuildOutputDir)\CastFORM.exe" />
+        <!--
+                                                      ABOUT GUID-SETTING
+        We let the linker generate the GUIDs for most of our files, except for RobotoSlab-Regular.ttf and MaterialIcons-Regular.otf
+        which needed to be set as companion files. This is because we don't want to install them as files
+        (i.e. we want Windows Installer treat them as normal files), but Windows Installer requires versioned non-font files
+        to have encoding (aka language/code page) specified. So as a result of how Windows Installer works at a low level,
+        our only solution is to have them set as companion files to CastFORM.exe and thus have them exempted from the language specifier
+        requirement; they are upgraded whenever CastFORM.exe is upgraded.
+        -->
+        <File Id="CastFORM.exe" Source="$(FlutterBuildOutputDir)\CastFORM.exe" KeyPath="yes" />
         <!--<Shortcut Name="CastFORM" Description="Pokemon TCG Decklist Generator" Directory="ProgramMenuFolder" Icon="insert_icon_object_here" />
         <Shortcut Name="CastFORM" Description="Pokemon TCG Decklist Generator" Directory="DesktopFolder" Icon="insert_icon_object_here" />-->
       </Component>
@@ -48,9 +56,9 @@
       </Component>
     </ComponentGroup>
 
-    <ComponentGroup Id="FontComponents" Directory="FONTSFOLDER">
-      <Component>
-        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\assets\fonts\RobotoSlab-Regular.ttf" />
+    <ComponentGroup Id="FontComponents" Directory="CUSTOMFONTSFOLDER">
+      <Component Id="RobotoSlab" Guid="a5d784d8-80ac-4b6f-a191-610ff6cfd652">
+        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\assets\fonts\RobotoSlab-Regular.ttf" KeyPath="no" CompanionFile="CastFORM.exe" />
       </Component>
     </ComponentGroup>
 
@@ -64,8 +72,8 @@
     </ComponentGroup>
 
     <ComponentGroup Id="FlutterFontComponents" Directory="FLUTTERFONTSFOLDER">
-      <Component>
-        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\fonts\MaterialIcons-Regular.otf" />
+      <Component Id="MaterialIcons" Guid="e5741805-26a9-436d-973f-e7dcca1b6e4a">
+        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\fonts\MaterialIcons-Regular.otf" KeyPath="no" CompanionFile="CastFORM.exe" />
       </Component>
     </ComponentGroup>
 

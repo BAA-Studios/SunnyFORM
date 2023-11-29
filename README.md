@@ -5,7 +5,7 @@ SunnyFORM is an experimental CastFORM Windows Installer project.
 CastFORM v1.0.0 through v2.0.1 was built via iExpress and while this was serviceable, it was also clearly lacking many creature comforts like the ability to uninstall (rather than manually deleting the install folder).  
 SunnyFORM aims to improve upon this by leveraging on Windows Installer to provide an installation experience that is more aligned with the expectations of users.
 
-At the moment, WiX v4 is still very new, and its documentationa are still in development. 
+At the moment, WiX v4 is still very new, and its documentations are still in development. 
 As such, this repository currently aims to adapt their presently available documentation for Flutter projects as our MVP. 
 As FireGiant puts out new documentation, we will revisit and continue to refine this repository to provide more comprehensive instructions, 
 as well as a more pleasing UI.
@@ -67,8 +67,10 @@ Should we want to micromanage this in the future, we will probably use the `New-
 
 ## How To Use HeatWave for Flutter Projects
 
-Note: These instructions are written for HeatWave v1.0.2, WiX v4.0.3 which are the latest versions at the time of writing.
-Note2: These instructions assume system-wide installation, rather than user-only installation since the latter does not currently have documentation from FireGiant at the moment.
+Note: These instructions are written for HeatWave v1.0.2, WiX v4.0.3 which are the latest versions at the time of writing.  
+Note2: These instructions assume system-wide installation, rather than user-only installation since the latter does not currently have documentation from FireGiant at the moment.  
+Note3: These instructions will produce one single self-contained no-options no-GUI full-install `.msi` file as an MVP output. We have provided links to relevant documentation pertaining 
+to GUI-customisation at the end of the section.
 
 1. Open Visual Studio and create a new project. Set the build configuration to x64 (required for Flutter).
     - Select `WiX` under the languages list, and then the `MSI Package (WiX v4)` temmplate
@@ -104,11 +106,27 @@ which may be suitable for large projects but unlikely to be necessary for our in
 12. In the top toolbar got to `Build > Build Solution`
 13. Check the output and test that it installs your program correctly
 
-The steps outlined above will generate a non-GUI `.msi` installer that you can distribute. 
+The steps outlined above will generate a non-GUI `.msi` installer that you can now proceed to test. 
 Once you have confirmed that you can get it working, you might want to start setting up a GUI inteface for configuration. 
-For a set-up GUI during the installation process, WiX has an extension called [WixUI dialog library](https://wixtoolset.org/docs/tools/wixext/wixui/). 
-You may also refer to either the source code in our `main` branch for example code, or, [Rob Mensching's VOD on how to install and import the extension](https://www.youtube.com/live/-1-72Py0GSM?si=gCTOtuOEt7KDDJvG) 
-and [Rob Mensching's VOD on how to customise the GUI](https://www.youtube.com/live/8eSS0DchoTY?si=n9Jv6eDOjCQHRmuL).
+For a set-up GUI during the installation process, WiX has an extension called WixUI dialog library, and you can find the API reference [here](https://wixtoolset.org/docs/tools/wixext/wixui/). 
+You may also refer to either the source code in our `main` branch for examples, or, [Rob Mensching's VOD on how to install and import the extension](https://www.youtube.com/live/-1-72Py0GSM?si=gCTOtuOEt7KDDJvG) 
+and [Rob Mensching's VOD on how to customise the GUI](https://www.youtube.com/live/8eSS0DchoTY?si=n9Jv6eDOjCQHRmuL) to see it in action.
+
+## ICE60 Warnings
+You may come across ICE60 warnings as a result of Flutter's font files (like `MaterialIcons-Regular.otf`). This has to do with Windows Installer's behvaiour at a low level:  
+> ICE60 checks that files in the File table meet the following condition:
+> 
+> - If the file is not a font and has a version, then it must have a language.
+> - ICE60 checks that no versioned files are listed in the MsiFileHash table.
+> 
+> \- [*Windows Installer Guide*](https://learn.microsoft.com/en-us/windows/win32/msi/ice60)
+
+The conundrum we have is that we wish for Windows Installer to treat these as normal files, rather than install them to the Windows font folder. 
+However, since these files are versioned, the first condition would require them to also have an encoding specified (which they can't).
+
+Our solution to this is to set our Flutter-generated `.exe` executable as `keypath`, and any offending font files as companion files to it. 
+This makes the font files companion references to the executable (and is upgraded every time the executable is upgraded), and thus exempt from 
+the code page value requirement.
 
 ## Disclaimer
 
