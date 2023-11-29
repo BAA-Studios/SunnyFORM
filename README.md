@@ -51,6 +51,9 @@ Our test bench is set up with the following dependencies:
 
 WiX supports a number of interfaces including CLI - we decided to go with the Visual Studio approach for dealing with WiX, so we grabbed the HeatWave extension.
 
+At the time of writing, we are letting HeatWave and WiX generate GUIDs instead of managing them manually. 
+Should we want to micromanage this in the future, we will probably use the `New-Guid` PowerShell cmdlet to generate new GUIDs.
+
 ## How To Use SunnyFORM
 
 1. Run `flutter build windows`, and note CastFORM version
