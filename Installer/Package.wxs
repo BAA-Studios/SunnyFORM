@@ -12,7 +12,7 @@
     <!--<Property Id="ARPPRODUCTICON" Value="insert_icon_object_here" />-->
     
     <!-- Block pre-win10/server2016 fromm installing -->
-    <Launch Message="CastFORM only supports 64-bit Windows 10/11!" Condition="VersionNT64 >= 1000"/>
+    <Launch Message="CastFORM only supports 64-bit Windows 10/11!" Condition="Installed OR VersionNT64 >= 1000"/>
     
     <MediaTemplate EmbedCab="yes"/>
 
