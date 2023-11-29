@@ -137,7 +137,7 @@ This is what Microsoft's documentation have to say:
 > **VersionNT64 property**  
 > The installer sets the VersionNT64 property to the version number for the operating system only if the system is running on a 64-bit computer. The property is undefined if the operating system is not 64-bit.  
 > 
-> The value is an integer: MajorVersion * 100 + MinorVersion.
+> The value is an integer: MajorVersion * 100 + MinorVersion.  
 > \- https://learn.microsoft.com/en-us/windows/win32/msi/versionnt64
 
 With this in mind, one might be led to believe that the Win32 call would result in VersionNT64 returning `1000` or more for 64-bit Windows 10+ and 64-bit Windows Server 2016+. 
