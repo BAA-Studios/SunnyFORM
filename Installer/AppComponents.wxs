@@ -1,6 +1,6 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <Fragment>
-    <!-- Set an icon for shortcuts -->
+    <!-- Define the icon to use for all shortcuts -->
     <!--TODO: <Icon Id="insert_icon_object_here" SourceFile="path_to_file"/>-->
     
     <ComponentGroup Id="BaseComponents" Directory="INSTALLFOLDER">
@@ -14,10 +14,18 @@
         our only solution is to have them set as companion files to CastFORM.exe and thus have them exempted from the language specifier
         requirement; they are upgraded whenever CastFORM.exe is upgraded.
         -->
+
+        <!-- Application entry-point and its shortcuts -->
         <File Id="CastFORM.exe" Source="$(FlutterBuildOutputDir)\CastFORM.exe" KeyPath="yes" />
+        <!-- Display in Start menu -->
         <Shortcut Name="CastFORM" Description="Pokemon TCG Decklist Generator" Directory="ProgramMenuFolder" Advertise="yes" /><!-- TODO: Add icon -->
-        <!--TODO: <Shortcut Name="CastFORM" Description="Pokemon TCG Decklist Generator" Directory="DesktopFolder" Icon="insert_icon_object_here" />-->
       </Component>
+      
+      <!-- Desktop shortcut (user's choice) -->
+      <Component Directory="DesktopFolder" Condition="ENABLEDESKTOPSHORTCUT">
+        <Shortcut Name="CastFORM" Description="Pokemon TCG Decklist Generator" Directory="DesktopFolder" Advertise="yes" /><!-- TODO: Add icon -->
+      </Component>
+      
       <Component>
         <File Source="$(FlutterBuildOutputDir)\flutter_windows.dll" />
       </Component>
