@@ -134,8 +134,8 @@ This oddity with VersionNT64 tripped us up for a long time. Flutter only officia
 would resolve this.
 
 This is what Microsoft's documentation have to say:  
-> **VersionNT64 property**
-> The installer sets the VersionNT64 property to the version number for the operating system only if the system is running on a 64-bit computer. The property is undefined if the operating system is not 64-bit.
+> **VersionNT64 property**  
+> The installer sets the VersionNT64 property to the version number for the operating system only if the system is running on a 64-bit computer. The property is undefined if the operating system is not 64-bit.  
 > 
 > The value is an integer: MajorVersion * 100 + MinorVersion.
 > \- https://learn.microsoft.com/en-us/windows/win32/msi/versionnt64
@@ -143,8 +143,8 @@ This is what Microsoft's documentation have to say:
 With this in mind, one might be led to believe that the Win32 call would result in VersionNT64 returning `1000` or more for 64-bit Windows 10+ and 64-bit Windows Server 2016+. 
 However, if you are attempting this query during a `.msi` installation, VersionNT64 actually returns `603` for all Windows 8.1+ and Windows Server 2012r2+ OSes. 
 According to Microsoft, this is a feature not a bug:  
-> **VersionNT value for Windows 10, Windows Server 2016, and Windows Server 2019**
-> When you install a .msi installation package in Windows 10, Windows Server 2016 or Windows Server 2019, the VersionNT value is 603.
+> **VersionNT value for Windows 10, Windows Server 2016, and Windows Server 2019**  
+> When you install a .msi installation package in Windows 10, Windows Server 2016 or Windows Server 2019, the VersionNT value is 603.  
 > 
 > \- https://learn.microsoft.com/en-US/troubleshoot/windows-client/application-management/versionnt-value-for-windows-10-server
 
