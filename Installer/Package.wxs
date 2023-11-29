@@ -8,6 +8,8 @@
       UpgradeCode="8328a3b6-dec0-4dc2-9058-741f55a1003c">
     <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
 
+    <!-- Set an icon for Windows Settings > Apps -->
+    <!--<Property Id="ARPPRODUCTICON" Value="insert_icon_object_here" />-->
     <MediaTemplate EmbedCab="yes"/>
 
     <!-- List of files to create on user machine -->

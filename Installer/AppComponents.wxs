@@ -1,9 +1,14 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <Fragment>
+    <!-- Set an icon for shortcuts -->
+    <!--<Icon Id="insert_icon_object_here" SourceFile="path_to_file"/>-->
+    
     <ComponentGroup Id="BaseComponents" Directory="INSTALLFOLDER">
       <Component>
         <!-- We wrap single files in components to let the linker generate the GUIDs -->
         <File Source="$(FlutterBuildOutputDir)\CastFORM.exe" />
+        <!--<Shortcut Name="CastFORM" Description="Pokemon TCG Decklist Generator" Directory="ProgramMenuFolder" Icon="insert_icon_object_here" />
+        <Shortcut Name="CastFORM" Description="Pokemon TCG Decklist Generator" Directory="DesktopFolder" Icon="insert_icon_object_here" />-->
       </Component>
       <Component>
         <File Source="$(FlutterBuildOutputDir)\flutter_windows.dll" />
