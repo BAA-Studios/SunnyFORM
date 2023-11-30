@@ -55,5 +55,6 @@
     
     <!-- GUI -->
     <ui:WixUI Id="WixUI_FeatureTree" />
+    
   </Package>
 </Wix>

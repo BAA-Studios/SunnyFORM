@@ -19,6 +19,9 @@
     <DefineConstants>FlutterBuildOutputDir=C:\Users\Kooki\Desktop\dev\tcg_tools\CastFORM\build\windows\runner\Release;VisualStudoRedistDir=C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.38.33130\x64\Microsoft.VC143.CRT</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <BindVariable Include="WixUILicenseRtf=CastFORM_EULA.rtf" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="WixToolset.UI.wixext" Version="4.0.3" />
   </ItemGroup>
 </Project>
