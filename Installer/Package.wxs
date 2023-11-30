@@ -17,40 +17,38 @@
     <MediaTemplate EmbedCab="yes"/>
 
     <!-- List of files to create on user machine -->
-    <Feature Id="Complete">
-      <Feature 
-          Id="Main" 
-          Title="CastFORM" 
-          Description="The CastFORM application." 
-          AllowAbsent="no" 
-          AllowAdvertise="no">
-        <!-- Flutter output -->
-        <ComponentGroupRef Id="BaseComponents" />
-        <ComponentGroupRef Id="DataComponents" />
-        <ComponentGroupRef Id="FlutterAssetComponents" />
-        <ComponentGroupRef Id="FontComponents" />
-        <ComponentGroupRef Id="FormComponents" />
-        <ComponentGroupRef Id="FlutterFontComponents" />
-        <ComponentGroupRef Id="ShaderComponents" />
-      </Feature>
-      <Feature 
-          Id="VCredist" 
-          Title="Visual C++ Redistributable Libraries" 
-          Description="Libraries that CastFORM uses. You may not need this if you already have vc_redist installed. You should install these if you're unsure of what this means." 
-          AllowAbsent="yes"
-          AllowAdvertise="no">
-        <!-- Visual C++ Redustributable libraries -->
-        <ComponentGroupRef Id="VCredist" />
-      </Feature>
-      <Feature 
-          Id="Shortcut" 
-          Title="Desktop Shortcut" 
-          Description="Create a desktop shortcut for CastFORM" 
-          AllowAbsent="yes" 
-          AllowAdvertise="no" 
-          Level="2">
-        <ComponentRef Id="DesktopShortcutComponent"/>
-      </Feature>
+    <Feature 
+        Id="Main" 
+        Title="CastFORM" 
+        Description="The CastFORM application." 
+        AllowAbsent="no" 
+        AllowAdvertise="no">
+      <!-- Flutter output -->
+      <ComponentGroupRef Id="BaseComponents" />
+      <ComponentGroupRef Id="DataComponents" />
+      <ComponentGroupRef Id="FlutterAssetComponents" />
+      <ComponentGroupRef Id="FontComponents" />
+      <ComponentGroupRef Id="FormComponents" />
+      <ComponentGroupRef Id="FlutterFontComponents" />
+      <ComponentGroupRef Id="ShaderComponents" />
+    </Feature>
+    <Feature 
+        Id="VCredist" 
+        Title="Visual C++ Redistributable Libraries" 
+        Description="These are libraries that CastFORM requires. You may not need to install this if you already have vc_redist." 
+        AllowAbsent="yes"
+        AllowAdvertise="no">
+      <!-- Visual C++ Redustributable libraries -->
+      <ComponentGroupRef Id="VCredist" />
+    </Feature>
+    <Feature 
+        Id="Shortcut" 
+        Title="Desktop Shortcut" 
+        Description="Create a desktop shortcut for CastFORM" 
+        AllowAbsent="yes" 
+        AllowAdvertise="no" 
+        Level="2">
+      <ComponentRef Id="DesktopShortcutComponent"/>
     </Feature>
     
     <!-- GUI -->
