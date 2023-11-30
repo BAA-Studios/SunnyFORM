@@ -11,7 +11,7 @@
     <!-- Set an icon for Windows Settings > Apps -->
     <!--TODO: <Property Id="ARPPRODUCTICON" Value="insert_icon_object_here" />-->
     
-    <!-- Block pre-win10/server2016 fromm installing -->
+    <!-- Block 64-bit Win8/WinServer2012 (or earlier) and all 32-bit from installing -->
     <Launch Message="CastFORM only supports 64-bit Windows 10/11!" Condition="Installed OR VersionNT64 >= 603"/>
     
     <MediaTemplate EmbedCab="yes"/>
@@ -53,6 +53,8 @@
     
     <!-- GUI -->
     <ui:WixUI Id="WixUI_FeatureTree" />
-    
+
+    <Property Id="WIXUI_EXITDIALOGOPTIONALTEXT" 
+              Value="CastFORM has been installed!" />
   </Package>
 </Wix>
