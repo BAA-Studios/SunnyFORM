@@ -21,12 +21,6 @@
         <Shortcut Name="CastFORM" Description="Pokemon TCG Decklist Generator" Directory="ProgramMenuFolder" Advertise="yes" /><!-- TODO: Add icon -->
       </Component>
       
-      <!-- Desktop shortcut (user's choice) -->
-      <Component Directory="DesktopFolder" Condition="ENABLEDESKTOPSHORTCUT">
-        <RegistryValue Root="HKCU" Key="SOFTWARE\BAA Studios\CastFORM" Name="EnableDesktopShortcut" Value="1" />
-        <Shortcut Name="CastFORM" Description="Pokemon TCG Decklist Generator" Directory="DesktopFolder" Target="[#CastFORM.exe]" /><!-- TODO: Add icon -->
-      </Component>
-      
       <Component>
         <File Source="$(FlutterBuildOutputDir)\flutter_windows.dll" />
       </Component>
@@ -38,6 +32,9 @@
       </Component>
       <Component>
         <File Source="$(FlutterBuildOutputDir)\url_launcher_windows_plugin.dll" />
+      </Component>
+      <Component>
+        <File Source="$(LicenseFile)" />
       </Component>
     </ComponentGroup>
 
@@ -91,5 +88,12 @@
         <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\shaders\ink_sparkle.frag" />
       </Component>
     </ComponentGroup>
+
+    <!-- Desktop shortcut (user's choice) -->
+    <Component Id="DesktopShortcutComponent" Directory="DesktopFolder">
+      <RegistryValue Root="HKCU" Key="SOFTWARE\BAA Studios\CastFORM" Name="EnableDesktopShortcut" Value="1" />
+      <Shortcut Name="CastFORM" Description="Pokemon TCG Decklist Generator" Directory="DesktopFolder" Target="[#CastFORM.exe]" />
+      <!-- TODO: Add icon -->
+    </Component>
   </Fragment>
 </Wix>

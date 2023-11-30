@@ -42,6 +42,15 @@
         <!-- Visual C++ Redustributable libraries -->
         <ComponentGroupRef Id="VCredist" />
       </Feature>
+      <Feature 
+          Id="Shortcut" 
+          Title="Desktop Shortcut" 
+          Description="Create a desktop shortcut for CastFORM" 
+          AllowAbsent="yes" 
+          AllowAdvertise="no" 
+          Level="2">
+        <ComponentRef Id="DesktopShortcutComponent"/>
+      </Feature>
     </Feature>
     
     <!-- GUI -->
